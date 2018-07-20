@@ -4,18 +4,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Register User</title>
+<title>User Login</title>
 </head>
 <body>
-	<form action="registerUser" method="post" >
+	<h2>Login:</h2>
+	<form action="login" method="post" >
 		<pre>
-			<h2>User Registration:</h2>
-			First Name: <input type="text" name="firstName" />
-			Last Name: <input type="text" name="lastName" />
-			User Email: <input type="email" name="email" />
+			User Name: <input type="text" name="email" />
 			Password: <input type="password" name="password" />
-			Confirm Password: <input type="password" name="confirmPassword" />
-			<input type="submit" value="register" />
+			<input type="submit" value="login" />
 		</pre>
 	</form>
 </body>
