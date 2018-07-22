@@ -9,13 +9,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lntellimed.flightreservation.dto.ReservationRequest;
 import com.lntellimed.flightreservation.entities.Flight;
+import com.lntellimed.flightreservation.entities.Reservation;
 import com.lntellimed.flightreservation.repos.FlightRepository;
+import com.lntellimed.flightreservation.services.ReservationService;
 
 @Controller
 public class ReservationController {
 
 	@Autowired
 	FlightRepository flightRepository;
+	
+	@Autowired
+	ReservationService reservationService;
 	
 	@RequestMapping("showCompleteResvervation")
 	public String showCompleteResvervation(@RequestParam("flightId") Long flightId, ModelMap modelMap) {
@@ -25,9 +30,10 @@ public class ReservationController {
 	}
 	
 	@RequestMapping(value="/completeReservation", method=RequestMethod.POST)
-	public String completeReservation(ReservationRequest request) {
-		
-		return null;
+	public String completeReservation(ReservationRequest request, ModelMap modelMap) {
+		Reservation reservation = reservationService.bookFlight(request);
+		modelMap.addAttribute("msg", "Reservation created successfully and the id is " + reservation.getId());
+		return "reservationConfirmation";
 	}
 	
 }

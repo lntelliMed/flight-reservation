@@ -1,6 +1,7 @@
 package com.lntellimed.flightreservation.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.lntellimed.flightreservation.dto.ReservationRequest;
 import com.lntellimed.flightreservation.entities.Flight;
@@ -10,6 +11,7 @@ import com.lntellimed.flightreservation.repos.FlightRepository;
 import com.lntellimed.flightreservation.repos.PassengerRepository;
 import com.lntellimed.flightreservation.repos.ReservationRepository;
 
+@Service
 public class ReservationServiceImpl implements ReservationService {
 	@Autowired
 	FlightRepository flightRepository;
@@ -22,7 +24,7 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	@Override
 	public Reservation bookFlight(ReservationRequest request) {
-		//Make Payment: Contact a third party payment service, etc.
+		//Make Payment: Contact a third party payment gateway, etc.
 		//request.getCardNumber();
 		
 		Long flightId = request.getFlightId();
