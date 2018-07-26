@@ -10,6 +10,8 @@ import com.lntellimed.flightreservation.entities.Reservation;
 import com.lntellimed.flightreservation.repos.FlightRepository;
 import com.lntellimed.flightreservation.repos.PassengerRepository;
 import com.lntellimed.flightreservation.repos.ReservationRepository;
+import com.lntellimed.flightreservation.util.EmailUtil;
+import com.lntellimed.flightreservation.util.PdfGenerator;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -21,6 +23,12 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	@Autowired
 	ReservationRepository reservationRepository;
+	
+	@Autowired
+	PdfGenerator pdfGenerator;
+	
+	@Autowired
+	EmailUtil emailUtil;
 	
 	@Override
 	public Reservation bookFlight(ReservationRequest request) {
@@ -44,7 +52,11 @@ public class ReservationServiceImpl implements ReservationService {
 		reservation.setCheckedIn(false);
 		
 		Reservation savedReservation = reservationRepository.save(reservation);
+		String filePath = "/Users/sam/Documents/reservations/reservation" + savedReservation.getId() + ".pdf";
 		
+		pdfGenerator.generateItinerary(savedReservation,
+				filePath);
+//		emailUtil.sendItinerery(passenger.getEmail(), filePath);
 		return savedReservation;
 	}
 
