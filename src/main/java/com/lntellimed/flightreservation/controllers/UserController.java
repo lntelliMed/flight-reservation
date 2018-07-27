@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lntellimed.flightreservation.entities.User;
 import com.lntellimed.flightreservation.repos.UserRepository;
+import com.lntellimed.flightreservation.services.SecurityService;
 
 
 @Controller
@@ -20,6 +21,9 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private SecurityService securityService;
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 	
@@ -49,8 +53,10 @@ public class UserController {
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String login(@RequestParam("email") String email, @RequestParam("password") String password, ModelMap modelMap) {
 		LOGGER.info("Inside login() and the email is: " + email);
-		User user = userRepository.findByEmail(email);
-		if (user.getPassword().equals(password)) {
+//		User user = userRepository.findByEmail(email);
+		boolean loginResponse = securityService.login(email, password);
+//		if (user.getPassword().equals(password)) {
+		if (loginResponse) {
 			return "findFlights";
 		} else {
 			modelMap.addAttribute("msg", "Invalid user name or password. Please try again.");
