@@ -31,6 +31,7 @@ public class ReservationRestController {
 	
 	@Transactional
 	@RequestMapping("/reservations")
+	@CrossOrigin
 	public Reservation updateReservation(@RequestBody ReservationUpdateRequest request) {
 		LOGGER.info("Inside findReservation() for: " + request);
 		Reservation reservation = reservationRepository.findById(request.getId()).get();
